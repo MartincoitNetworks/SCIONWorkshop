@@ -17,7 +17,21 @@ At the start of the workshop, you'll be assigned a host to use via an Etherpad. 
 
 Create an account at [https://www.scionlab.org/](https://www.scionlab.org/registration/register/). SCIONLab is a global research network to test the SCION next-generation internet architecture. This will be used to connect your host to a SCION network.
 
+## SCION Basics...
+
+Just some initial information and nomenclature when it comes to SCION...
+
+### SCION Addresses
+
+A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. 
+
+### SCIONLab versus SCION
+
+SCION is in production across several ISPs and financial institutions in Switzerland. SCIONLab is a seperate instance of SCION from the production instance in Switzerland. SCIONLab spans the globe and is designed to allow researchers and hobbyists alike to work with SCION in a collaborative fashion. The SCIONLab website was designed to faciliate the easy connection of hosts. SCIONLab primarily runs atop tradtional Internet connections as opposed to dedicated WAN circuits. This compromise means that SCIONLab does not have the true resilience of a SCION network running atop dedicated circuits.
+
 ## Your SCION AS
+
+As part of this workshop, you'll be creating your own AS under one of the existing SCIONLab ISDs. 
 
 ### Register your SCION AS
 
