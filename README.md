@@ -64,14 +64,21 @@ Go back to the Etherpad and update your host entry with your SCION AS ID (19-ffa
 
 Login into (via SSH) the host that you've self-assigned. Use the username and password/key provided on the Etherpad.
 
-Configure the host with the SCION AS you created above. This done by running "sudo scionlab-config --host-id=<...> --host-secret=<...>" that you cut and paste from the SCIONLab website above.
+Configure the host with the SCION AS you created above using scionlab-config. It will pull down the information about your AS and set it up on your host.
 
-Restart the SCION services
+```
+sudo scionlab-config --host-id=<...> --host-secret=<...>
+```
+
+Restart the SCION services.
 ```
 sudo systemctl start scionlab.target
 ```
 
 Verify that your host has been assigned the correct AS with "scion address" command
+```
+scion address
+```
 
 Verify connectivity with a ping.
 
