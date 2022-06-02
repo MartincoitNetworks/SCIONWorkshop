@@ -21,9 +21,11 @@ Create an account at [https://www.scionlab.org/](https://www.scionlab.org/regist
 
 Just some initial information and nomenclature when it comes to SCION...
 
-### SCION Addresses
+### SCION Addressing
 
-A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. 
+A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a colletion of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. 
+
+If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
 ### SCIONLab versus SCION
 
@@ -35,7 +37,7 @@ As part of this workshop, you'll be creating your own AS under one of the existi
 
 ### Register your SCION AS
 
-On the SCIONLab website https://www.scionlab.org/user/, navigate to "My ASes" and click "Create a new SCIONLab AS". Pick a name for your AS and select the "SCION installation from packages". The host you have been provided already has the SCION packages installed. There's no need to rerun the package installs.
+On the SCIONLab website https://www.scionlab.org/user/, navigate to "My ASes" and click "Create a new SCIONLab AS". Name your AS after your workshop host (i.e. Workshop 13). Select the "SCION installation from packages". The host you have been provided already has the SCION packages installed. There's no need to rerun the package installs.
 
 Copy and set aside the scionlab-config command. You'll be running this command several times so save it onto a notepad or some scratch spot. The scionlab-config command is of the form "sudo scionlab-config --host-id=<...> --host-secret=<...>"
 
@@ -94,6 +96,11 @@ scion traceroute 19-ffaa:0:1301,127.0.0.1
 Feel free to run "scion traceroute" to other networks further away.
 
 ### Visualization Tools
+
+Installed on your workshop host is a collection of web (browser) based applications. Let's start up the webapps and take a look.
+
+Startup the web apps with the command:
+
 
 
 ## SCION Native Application - Sensor
