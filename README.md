@@ -3,6 +3,8 @@ SCION Next Generation Internet Workshop &amp; Tutorial
 
 ## Prerequisites
 
+Before starting the workshop, you'll need a few things. The workshop presenter can help you as needed.
+
 ### Attendee Software
 
 As an workshop attendee, you'll need an Internet attached laptop with an SSH client and a web browser.
@@ -47,13 +49,35 @@ Verify connectivity with "scion ping -c 5 19-ffaa:0:1303,127.0.0.1".
 
 ### SCIONLab Topology
 
+A static representation of the SCIONLab is available at https://www.scionlab.org/topology.png. You can use it as a reference when you examine the network paths that SCION presents.
+
+### Showpaths
+
+One of the most useful tools is the "scion showpaths" command. This displays the paths that are currently available to a remote AS. Let's start small with the path(s) from your AS to the AS that you're connected.
+
+scion showpaths 19-ffaa:0:1303
+
+You should just see the one path since there's just a single connection from your host to the upstream Attachment Point.
+
+Let's do a more complicated path. 19-ffaa:0:1301 is just a single hop from the upstream AP but has some additional paths with more hops.
+
+scion showpaths 19-ffaa:0:1301
+
+Pull up the SCIONLab topology https://www.scionlab.org/topology.png and trace out all the paths that are displayed.
+
+Feel free to run "scion showpaths" to other networks further away.
+
 ### Traceroute
 
-### Path Aware Networking
+The scion traceroute command will put packets on the wire tracing them out along the full path. SCION routers along the way will respond back mapping out the path. This differs from "showpaths" which uses routing information to display the available paths. Traceroute actually transmits packets.
 
+Rerun the above "scion showpaths" but as "scion traceroute" instead.
 
-scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003
+scion traceroute 19-ffaa:0:1303,127.0.0.1
 
+scion traceroute 19-ffaa:0:1301,127.0.0.1
+
+Feel free to run "scion traceroute" to other networks further away.
 
 ### Visualization Tools
 
