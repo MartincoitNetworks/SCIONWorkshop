@@ -120,7 +120,15 @@ http://<workshop_host_ipv4>:8000/
 
 We will repeat the traceroute command done above via the web interface. 
 
-Click the "traceroute" tab and enter in the destination of 19-ffaa:0:1303,[127.0.0.1:1]. The 
+Click the "traceroute" tab and enter in the destination of 19-ffaa:0:1303,[127.0.0.1:1]. Then click tab "Execute" and the "Run Once" button. You'll see the textual representation of the traceroute. Click the "Paths" tab and toggle on the "Topology" radio button to see a graphical representation of the traceroute. It's pretty simple since the Magdeburg AS is a single hop away.
+
+We'll do a more complex route next going to the Magdeburg Core AS (19-ffaa:0:1301). Change the AS on the web page and once again click "Execute" and "Run Once". You'll see a much more complex traceroute. Click over to "Paths" and "Topology" to see a graphical representation showing the additional hops.
+
+### Web Visualization Tools - Showpaths
+
+The web visualization tools can also be used to see all the paths available. From the web app, click over to the "Update Paths" on the far right web panel. You'll see all the paths available between the two ASes. Select one of the longer ones that goes through ISD 17 (Switzerland). 
+
+With the longer path selected, go ahead and rerun the traceroute. You'll see the traffic now leaves the EU ISD, traversing through the Swiss ISD, and then back into the EU ISD. The arrows on the graphic show the full path.
 
 
 ## SCION Native Application - Sensor
