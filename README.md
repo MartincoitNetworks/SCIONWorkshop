@@ -85,7 +85,7 @@ scion address
 Verify connectivity with a ping.
 
 ```
-scion ping -c 5 19-ffaa:0:1303,127.0.0.1"
+scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 ```
 
 ## Examine the SCIONLab Network
