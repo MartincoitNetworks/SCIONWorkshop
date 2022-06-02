@@ -17,6 +17,8 @@ At the start of the workshop, you'll be assigned a host to use via an Etherpad. 
 
 Create an account at [https://www.scionlab.org/](https://www.scionlab.org/registration/register/). SCIONLab is a global research network to test the SCION next-generation internet architecture. This will be used to connect your host to a SCION network.
 
+You may need to disable ad blocking in order to view the CAPTCHA.
+
 ## SCION Basics...
 
 Just some initial information and nomenclature when it comes to SCION...
