@@ -74,7 +74,7 @@ sudo scionlab-config --host-id=<...> --host-secret=<...>
 
 Restart the SCION services.
 ```
-sudo systemctl start scionlab.target
+sudo systemctl restart scionlab.target
 ```
 
 Verify that your host has been assigned the correct AS with "scion address" command
