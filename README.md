@@ -170,8 +170,21 @@ The extended scion path command can get the details on the mtu, latency, bandwid
 
 scion showpaths 17-ffaa:0:1102 --extended
 
-
 ## SCION Native Application - Bandwidth Tester
+
+The bandwidth tester can be used to measure the network throughput across various paths through the SCION network. It's available as a command line app as well as through the web app. We're going to be running it via the command line.
+
+Run a test sending to ISD 17 (Switzerland) of 10 second duration (seconds), 1000 bytes packets, 1250 packets, and target 1 Mbps bandwidth in both directions (client to server and server to client). Take a look at the bandwidth values and inter packet arrival variance.
+
+scion-bwtestclient -s 17-ffaa:0:1108,[195.176.28.157]:30100 -cs 10,1000,1250,1Mbps -sc 10,1000,12500,10Mbps
+
+Repeat the above command with path selection turned on interactively (-i flag) and select a less optimal route (i.e. the last one on the interactive list).
+
+scion-bwtestclient -i -s 17-ffaa:0:1108,[195.176.28.157]:30100 -cs 10,1000,1250,1Mbps -sc 10,1000,12500,10Mbps
+
+Keep on increasing the target bandwidth to see what happens between the optimal route and alternate paths.
+
+A full list of bandwidth tester servers is available online if you want to try a different bandwidth server.
 
 https://docs.scionlab.org/content/apps/bwtester.html
 
