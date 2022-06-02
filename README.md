@@ -187,12 +187,75 @@ Keep on increasing the target bandwidth to see what happens between the optimal 
 A full list of bandwidth tester servers is available online if you want to try a different bandwidth server.
 
 https://docs.scionlab.org/content/apps/bwtester.html
-
-### Policy Based Path Networking  
+ 
 
 ## Legacy Application atop SCION
 
+All of our examples so far have shown SCION native applications running atop a SCION network. Now we're going to show how to a legacy IPv4 application can benefit from a SCION network without application modifications. We'll be using running the OpenStack Keystone identity service over SCION by setting up a SCION Internet Gateway (SIG) between the OpenStack client and OpenStack Keystone server.
+
+There are Keystone servers running at:
+
+19-ffaa:1:e98,[127.0.0.1:5000]
+
 ### SCION Internet Gateway (SIG)
 
+The SCION Internet Gateway (SIG) creates a tunnel between two ASes. In our case, it is going to create a tunnel between your host SCIONLab AS and the 19-ffaa:1:e98 AS where Keystone is running.
+
+The remote IPv4 network will be 172.16.1.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
+
+Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel
+
+Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel. sudo vi /etc/scion/sig.json
+
+```
+# /etc/scion/sig.json
+{
+    "ASes": {
+        "19-ffaa:1:e98": { # Keystone AS - do not change this AS
+            "Nets": [
+                "172.16.10.0/24"  # do not change this IP
+            ]
+        }
+    },
+    "ConfigVersion": 9001
+}
+```
+
+Add the following lines to /etc/scion/sig.toml
+```
+# add these lines
+
+[tunnel]
+src_ipv4 = "172.16.13.1"   # replace 13 with your workshop number
+```
+
+Add the new subnet to your workstation host via the loopback and restart the SIG gateway
+```
+sudo ip address add 172.16.13.1 dev lo  # replace 13 with your workshop number
+systemctl restart scion-ip-gateway.service
+```
+
+Test the connection.
+```
+ping 172.16.10.1 -c 1
+```
+
 ### OpenStack Keystone atop SIG
- 
+
+An Openstack credential file has been saved in the root directory for use. Modify it with the desired remote IP address.
+
+```
+sudo -i
+vi ~root/demo-openrc
+```
+
+Change the IP address to the 172.16.10.1 in the demo-openrc.
+
+Request a token from the remote Keystone server with the SCION network through the SIG.
+
+```
+source ~root/demo-openrc
+openstack token issue
+```
+
+You've now successfully run an IPv4 service over SCION.
