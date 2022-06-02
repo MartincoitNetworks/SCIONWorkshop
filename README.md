@@ -51,12 +51,56 @@ Verify connectivity with "scion ping -c 5 19-ffaa:0:1303,127.0.0.1".
 
 ### Path Aware Networking
 
+
+scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003
+
+
 ### Visualization Tools
 
 
-## SCION Networking
+## SCION Native Application - Sensor
 
-### SCION Native Applications
+Your SCION Host has a number of SCION native applications installed. A SCION native application is able to direclty utilize SCION IP addresses and policy based path networking. scion-sensor is one such application. There is a sensor server running at "17-ffaa:0:1102,[192.33.93.177]:42003". We'll be using this application to examine the Path Aware Networking capabilities of SCION Native Applications.
+
+First we're going to make sure we can ping the remote host.
+
+scion ping 17-ffaa:0:1102,192.33.93.177 -c 1
+
+And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
+
+scion showpaths 17-ffaa:0:1102
+
+
+### Sensor with Default Path Selection
+
+Fetch data with the default PAN (Path Aware Networking) policy. This will use the "best" path available.
+
+scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003
+
+You should get some data back from the remote sensor. The information you receive back from the sensor is irrelvant. What is important is that SCION decided the best path, from all available paths at that moment, and made the connection.
+
+### Sensor with Interactive Path Selection
+
+Next we're going to fetch data from the same remote sensor but interactively select the network path. This is done with the '-i' flag to the command.
+
+scion-sensorfetcher -i -s 17-ffaa:0:1102,[192.33.93.177]:42003
+
+Take note of all the paths that are prompted. Select one by typing in the path number and the connection will be initiated across that path.
+
+### Sensor with Path Preference
+
+Finally we're going to fetch data and allow SCION to select the path based upon a preference. The available preferences configured are mtu, latency, bandwidth, and hops. The path preference is selected with the flag "-preference" and the preference string.
+
+scion-sensorfetcher -preference latency -s 17-ffaa:0:1102,[192.33.93.177]:42003
+
+The extended scion path command can get the details on the mtu, latency, bandwidth, and hops.
+
+scion showpaths 17-ffaa:0:1102 --extended
+
+
+## SCION Native Application - Bandwidth Tester
+
+https://docs.scionlab.org/content/apps/bwtester.html
 
 ### Policy Based Path Networking  
 
