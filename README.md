@@ -23,7 +23,16 @@ Just some initial information and nomenclature when it comes to SCION...
 
 ### SCION Addressing
 
-A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a colletion of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. 
+A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a colletion of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. An IA is the combination of the ISD and the AS.
+
+Putting it all together...
+
+19-ffaa:0:1303,[10.20.30.40:22] can be broken out as:
+ISD: 19                     -> EU (Europe) Isolation Domain
+AS: ffaa:0:1303             -> Magdeburg AS
+IA: 19-ffaa:0:1303
+IP: 10.20.30.40             -> IP address within the Magdeburg AS
+Port: 22                    -> Port on the host
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
@@ -95,12 +104,23 @@ scion traceroute 19-ffaa:0:1301,127.0.0.1
 
 Feel free to run "scion traceroute" to other networks further away.
 
-### Visualization Tools
+### Web Visualization Tools - Installation
 
 Installed on your workshop host is a collection of web (browser) based applications. Let's start up the webapps and take a look.
 
 Startup the web apps with the command:
 
+sudo systemctl start scion-webapp
+
+Navigate to the web app page running on port 8000 of your workshop host.
+
+http://<workshop_host_ipv4>:8000/
+
+### Web Visualization Tools - Traceroute
+
+We will repeat the traceroute command done above via the web interface. 
+
+Click the "traceroute" tab and enter in the destination of 19-ffaa:0:1303,[127.0.0.1:1]. The 
 
 
 ## SCION Native Application - Sensor
