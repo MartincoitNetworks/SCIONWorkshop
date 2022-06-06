@@ -319,3 +319,68 @@ openstack token issue
 ```
 
 You've now successfully run an IPv4 service over SCION.
+
+
+### Multiple Attachment Points
+
+Your AS can be connected to multiple upstread Attachment Points. These paths can all be used simulatenously with your desired Path Aware Networking policy in place. For this portion, we'll be switching to the Switzerland ISD (17) since it has two Attachment Points available. Remember that your AS can only be connected to ASes from within your ISD.
+
+On https://www.scionlab.org/ you'll be modifying your AS. Remove the existing Magdelburg by clicking the *Delete* checkbox and then *Save*. Create two new Attachment Points one each to the ETH Zurich AP and to the ETH Hell AP by clicking *New Provider Link* twice. Use your hosts public IP and ports 50000 and 500001.
+
+Rerun the *scionlab-config* command to pull down the new configuration.
+
+```
+sudo scionlab-config --host-id=<...> --host-secret=<...>
+```
+
+Verify that you have been assigned a new AS in the Switzerland ISD.
+
+```
+scion address
+```
+
+### Examining Network Latency
+The ETH Hell AP artifically introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
+
+```
+scion showpaths 17-ffaa:0:1102 -e
+```
+
+*Compare the paths that traverse through ETH-Hell versus those that do not.* How does the latency and bandwidth compare?
+
+```
+scion traceroute 17-ffaa:0:1102,[127.0.0.1] -i
+```
+*Run traceroutes through the ETH-Hell paths and the non-Hell paths.* Compare the latency and bandwidth of the traceroutes.
+
+Run the sensorfetcher command and compare the results.
+```
+scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003 -i
+```
+
+Run the command across paths with and without Eth-Hell.
+
+### Wrapup
+
+## Thank You
+Thanks for running through this workshop. We're glad you joined us!
+
+## Feedback Appreciated
+If you see mistakes or have comments, please feel free to submit an issue or a PR on this repo.
+
+## More Info?
+
+Follow us on Twitter: https://twitter.com/SCION_Workshop
+Sign up for the SCION newsletter: https://www.scion.org/#contact
+
+Copyright (C) 2022 - JHL Consulting LLC
+
+
+
+
+
+
+
+
+
+
