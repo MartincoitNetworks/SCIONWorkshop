@@ -141,7 +141,24 @@ Pick an AS a little further away. 19-ffaa:0:1301 is a few hops further away.
 ```
 scion traceroute 19-ffaa:0:1301,127.0.0.1
 ```
-Feel free to run "scion traceroute" to other networks further away.
+
+### Traceroute - Pick your Path
+
+Next we're going to run traceroute but pick the path to be used. Our previous traceroutes used the path that SCION recommended.
+
+Rerun showpaths to the Magdelburg Core AS and take note of the path that goes through ISD 17 (Switzerland).
+```
+scion showpaths 19-ffaa:0:1301
+```
+
+Now we're going to use the *-i* command to run traceroute and pick our path interactively. 
+```
+scion traceroute 19-ffaa:0:1301,127.0.0.1 -i
+```
+
+Enter in the number (i.e. 4) of the path that goes through ISD-17. The traceroute will now utilize that path. Take note of the packets traversing ISD-17.
+
+Congrats! You just made your first path selection use Path Aware Networking!
 
 ### Web Visualization Tools - Installation
 
