@@ -47,7 +47,6 @@ A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1
 | IA            | 19-ffaa:0:1303 | Magdeburg AS AP EU                 |
 | IP            | 10.20.30.40    | IP address within the Magdeburg AS |
 | Port          | 22             | Port on the host 10.20.30.40       |
-```
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
