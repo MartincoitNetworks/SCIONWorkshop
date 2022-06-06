@@ -162,7 +162,7 @@ Congrats! You just made your first path selection use Path Aware Networking!
 
 ### Web Visualization Tools - Installation
 
-Installed on your workshop host is a collection of web (browser) based applications. Let's start up the webapps and take a look.
+Installed on your workshop host is a collection of web (browser) based applications. Let's start up the webapps and take a look. We'll be able to see graphically the output of the traceroute and showpaths commands we did above.
 
 Startup the web apps with the command:
 ```
@@ -183,7 +183,7 @@ We'll do a more complex route next going to the Magdeburg Core AS (19-ffaa:0:130
 
 ### Web Visualization Tools - Showpaths
 
-The web visualization tools can also be used to see all the paths available. From the web app, click over to the "Update Paths" on the far right web panel. You'll see all the paths available between the two ASes. Select one of the longer ones that goes through ISD 17 (Switzerland). 
+The web visualization tools can also be used to see all the paths available. From the web app, click over to the "Update Paths" on the far right web panel. You'll see all the paths available between the two ASes. Select one of the longer ones that goes through ISD 17 (Switzerland) - click the + sign.
 
 With the longer path selected, go ahead and rerun the traceroute. You'll see the traffic now leaves the EU ISD, traversing through the Swiss ISD, and then back into the EU ISD. The arrows on the graphic show the full path.
 
@@ -215,11 +215,15 @@ Next we're going to fetch data from the same remote sensor but interactively sel
 ```
 scion-sensorfetcher -i -s 17-ffaa:0:1102,[192.33.93.177]:42003
 ```
-Take note of all the paths that are prompted. Select one by typing in the path number and the connection will be initiated across that path.
+Take note of all the paths that are prompted. Select one by typing in the path number and the connection will be initiated across that path. We've done this before with traceroute so nothing new.
 
 ### Sensor with Path Preference
 
 Finally we're going to fetch data and allow SCION to select the path based upon a preference. The available preferences configured are mtu, latency, bandwidth, and hops. The path preference is selected with the flag "-preference" and the preference string.
+
+*What preference should we select for our sensors fetcher?* How many bytes does the sensorfetcher return? Not that many so bandwidth need not be one of our criteria. But sensor data is timely so latency would be a better preference. 
+
+Run the sensorfetcher with a preference for a path with low latency.
 ```
 scion-sensorfetcher -preference latency -s 17-ffaa:0:1102,[192.33.93.177]:42003
 ```
@@ -227,6 +231,7 @@ The extended scion path command can get the details on the mtu, latency, bandwid
 ```
 scion showpaths 17-ffaa:0:1102 --extended
 ```
+
 ## SCION Native Application - Bandwidth Tester
 
 The bandwidth tester can be used to measure the network throughput across various paths through the SCION network. It's available as a command line app as well as through the web app. We're going to be running it via the command line.
