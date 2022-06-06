@@ -263,7 +263,7 @@ The SCION Internet Gateway (SIG) creates a tunnel between two ASes. In our case,
 
 The remote IPv4 network will be 172.16.1.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
 
-Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel
+Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel.
 
 Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel. sudo vi /etc/scion/sig.json
 
