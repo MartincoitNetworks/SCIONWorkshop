@@ -112,17 +112,21 @@ One of the most useful tools is the "scion showpaths" command. This displays the
 scion showpaths 19-ffaa:0:1303
 ```
 
-You should just see the one path since there's just a single connection from your host to the upstream Attachment Point.
+*Why is there only one path back to 19-ffaa:0:1303?* Hint: How many attachment links does your host have to the upstream AS?
 
 Let's do a more complicated path. 19-ffaa:0:1301 is just a single hop from the upstream AP but has some additional paths with more hops.
+
+Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdelburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that go via other ISDs*
 
 ```
 scion showpaths 19-ffaa:0:1301
 ```
 
-Pull up the SCIONLab topology https://www.scionlab.org/topology.png and trace out all the paths that are displayed.
+*How many paths where there?* Why are there paths through ISD 17 (Switzerland)?
 
-Feel free to run "scion showpaths" to other networks further away.
+*Why would you utilize an alternate path?* What reasons might there be to utilize an alternate path? Failover? Latency? Bandwidth? Regulatory?
+
+Feel free to run "scion showpaths" to other networks further away. 18-ffaa:0:1201 (Carnegie Mellon University, North America) is a good choice.
 
 ### Traceroute
 
