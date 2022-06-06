@@ -30,17 +30,23 @@ Just some initial information and nomenclature when it comes to SCION...
 
 A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a colletion of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. An IA is the combination of the ISD and the AS.
 
-Putting it all together...
+| Attribute     | Name              | Sample         | Descrption                                                                        | 
+| ------------- |-------------------|----------------|-----------------------------------------------------------------------------------| 
+| ISD           | Isolation Domain  | 19             | A collection of ASes that belong to the same trust group (i.e. company or nation).|
+| AS            | Autonomous SYstem | ffaa:0:1303    | A collection of IP networks. An AS must belong to only one ISD.                   |
+| Core AS       | Core AS           | ffaa:0:1301    | An AS that has connections to ASes in other ISDs.                                 |
+| Attachment AS | Attachment AS     | ffaa:0:1301    | An AS that allows other ASes to attach to it.                                     |
+
 
 19-ffaa:0:1303,[10.20.30.40:22] can be broken out as:
 
-| Attribute     | Description       |Value           | Descrption                         | 
-| ------------- |-------------------|----------------|------------------------------------| 
-| ISD           | Isolation Domain  | 19             | EU (Europe) Isolation Domain       |
-| AS            | Autonomous SYstem | ffaa:0:1303    | Magdeburg AS                       |
-| IA            | ISD AS            | 19-ffaa:0:1303 | Magdeburg AS AP EU                 |
-| IP            | Inet Addr         | 10.20.30.40    | IP address within the Magdeburg AS |
-| Port          | Inet Port         | 22             | Port on the host 10.20.30.40       |
+| Attribute     |Value           | Descrption                         | 
+| ------------- |----------------|------------------------------------| 
+| ISD           | 19             | EU (Europe) Isolation Domain       |
+| AS            | ffaa:0:1303    | Magdeburg AS                       |
+| IA            | 19-ffaa:0:1303 | Magdeburg AS AP EU                 |
+| IP            | 10.20.30.40    | IP address within the Magdeburg AS |
+| Port          | 22             | Port on the host 10.20.30.40       |
 ```
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
