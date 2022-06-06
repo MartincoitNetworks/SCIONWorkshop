@@ -10,7 +10,7 @@ Before starting the workshop, you'll need a few things. The workshop presenter c
 
 ### Attendee Software
 
-As an workshop attendee, you'll need an Internet attached laptop with an SSH client and a web browser.
+As an workshop attendee, you'll need an Internet attached laptop with an SSH client, a web browser, and an email account.
 
 ### Workshop Attendee Host
 
@@ -32,13 +32,15 @@ A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1
 
 Putting it all together...
 
-```
 19-ffaa:0:1303,[10.20.30.40:22] can be broken out as:
-ISD: 19                     -> EU (Europe) Isolation Domain
-AS: ffaa:0:1303             -> Magdeburg AS
-IA: 19-ffaa:0:1303
-IP: 10.20.30.40             -> IP address within the Magdeburg AS
-Port: 22                    -> Port on the host
+
+| Attribute     | Description       |Value           | Descrption                         | 
+| ------------- |-------------------|----------------|------------------------------------| 
+| ISD           | Isolation Domain  | 19             | EU (Europe) Isolation Domain       |
+| AS            | Autonomous SYstem | ffaa:0:1303    | Magdeburg AS                       |
+| IA            | ISD AS            | 19-ffaa:0:1303 | Magdeburg AS AP EU                 |
+| IP            | Inet Addr         | 10.20.30.40    | IP address within the Magdeburg AS |
+| Port          | Inet Port         | 22             | Port on the host 10.20.30.40       |
 ```
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
