@@ -262,7 +262,7 @@ There is a Keystone server running at 19-ffaa:1:e98,[127.0.0.1:5000]
 
 The SCION Internet Gateway (SIG) creates a tunnel between two ASes. In our case, it is going to create a tunnel between your host SCIONLab AS and the 19-ffaa:1:e98 AS where Keystone is running.
 
-The remote IPv4 network will be 172.16.1.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
+The remote IPv4 network will be 172.16.10.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
 
 Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel.
 
@@ -373,6 +373,7 @@ If you see mistakes or have comments, please feel free to submit an issue or a P
 ## More Info?
 
 Follow us on Twitter: https://twitter.com/SCION_Workshop
+
 Sign up for the SCION newsletter: https://www.scion.org/#contact
 
 Copyright (C) 2022 - JHL Consulting LLC
