@@ -28,19 +28,19 @@ Just some initial information and nomenclature when it comes to SCION...
 
 ### SCION Addressing
 
-A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a colletion of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. An IA is the combination of the ISD and the AS.
+A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1303,[10.20.30.40:22] would be read as ISD #19 (EU), AS ffaa:0:1303 (Magdeburg AP, DE), 10.20.30.40 and port 22. The ISD is the isolation domain - a unit of trust and a collection of ASes. The AS is an SCION assigned Autonomous System that belongs to the ISD. A core AS has network connections to ASes at other ISDs. An IA is the combination of the ISD and the AS.
 
-| Attribute     | Name              | Sample         | Descrption                                                                        | 
+| Attribute     | Name              | Sample         | Description                                                                        | 
 | ------------- |-------------------|----------------|-----------------------------------------------------------------------------------| 
 | ISD           | Isolation Domain  | 19             | A collection of ASes that belong to the same trust group (i.e. company or nation).|
-| AS            | Autonomous SYstem | ffaa:0:1303    | A collection of IP networks. An AS must belong to only one ISD.                   |
+| AS            | Autonomous System | ffaa:0:1303    | A collection of IP networks. An AS must belong to only one ISD.                   |
 | Core AS       | Core AS           | ffaa:0:1301    | An AS that has connections to ASes in other ISDs.                                 |
 | Attachment AS | Attachment AS     | ffaa:0:1301    | An AS that allows other ASes to attach to it.                                     |
 
 
 19-ffaa:0:1303,[10.20.30.40:22] can be broken out as:
 
-| Attribute     |Value           | Descrption                         | 
+| Attribute     |Value           | Description                        | 
 | ------------- |----------------|------------------------------------| 
 | ISD           | 19             | EU (Europe) Isolation Domain       |
 | AS            | ffaa:0:1303    | Magdeburg AS                       |
@@ -52,7 +52,7 @@ If there's no port component, you can commit the brackets around the IP address 
 
 ### SCIONLab versus SCION
 
-SCION is in production across several ISPs and financial institutions in Switzerland. SCIONLab is a seperate instance of SCION from the production instance in Switzerland. SCIONLab spans the globe and is designed to allow researchers and hobbyists alike to work with SCION in a collaborative fashion. The SCIONLab website was designed to faciliate the easy connection of hosts. SCIONLab primarily runs atop tradtional Internet connections as opposed to dedicated WAN circuits. This compromise means that SCIONLab does not have the true resilience of a SCION network running atop dedicated circuits.
+SCION is in production across several ISPs and financial institutions in Switzerland. SCIONLab is a seperate instance of SCION from the production instance in Switzerland. SCIONLab spans the globe and is designed to allow researchers and hobbyists alike to work with SCION in a collaborative fashion. The SCIONLab website was designed to facilitate the easy connection of hosts. SCIONLab primarily runs atop tradtional Internet connections as opposed to dedicated WAN circuits. This compromise means that SCIONLab does not have the true resilience of a SCION network running atop dedicated circuits.
 
 ## Your SCION AS
 
@@ -116,7 +116,7 @@ scion showpaths 19-ffaa:0:1303
 
 Let's do a more complicated path. 19-ffaa:0:1301 is just a single hop from the upstream AP but has some additional paths with more hops.
 
-Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdelburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that go via other ISDs*
+Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdeburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that go via other ISDs*
 
 ```
 scion showpaths 19-ffaa:0:1301
@@ -146,7 +146,7 @@ scion traceroute 19-ffaa:0:1301,127.0.0.1
 
 Next we're going to run traceroute but pick the path to be used. Our previous traceroutes used the path that SCION recommended.
 
-Rerun showpaths to the Magdelburg Core AS and take note of the path that goes through ISD 17 (Switzerland).
+Rerun showpaths to the Magdeurg Core AS and take note of the path that goes through ISD 17 (Switzerland).
 ```
 scion showpaths 19-ffaa:0:1301
 ```
@@ -190,7 +190,8 @@ With the longer path selected, go ahead and rerun the traceroute. You'll see the
 
 ## SCION Native Application - Sensor
 
-Your SCION Host has a number of SCION native applications installed. A SCION native application is able to direclty utilize SCION IP addresses and policy based path networking. scion-sensor is one such application. There is a sensor server running at "17-ffaa:0:1102,[192.33.93.177]:42003". We'll be using this application to examine the Path Aware Networking capabilities of SCION Native Applications.
+Your SCION Host has a number of SCION native applications installed. A SCION native application is able to directly utilize SCION IP addresses and policy based path networking. scion-sensor is one such application. There is a sensor server running at "17-ffaa:0:1102,[192.33.93.177]:42003". We'll be using this application to examine the Path Aware Networking capabilities of SCION Native Applications.
+
 
 First we're going to make sure we can ping the remote host.
 ```
@@ -207,7 +208,7 @@ Fetch data with the default PAN (Path Aware Networking) policy. This will use th
 ```
 scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003
 ```
-You should get some data back from the remote sensor. The information you receive back from the sensor is irrelvant. What is important is that SCION decided the best path, from all available paths at that moment, and made the connection.
+You should get some data back from the remote sensor. The information you receive back from the sensor is irrelevant. What is important is that SCION decided the best path, from all available paths at that moment, and made the connection.
 
 ### Sensor with Interactive Path Selection
 
@@ -219,7 +220,7 @@ Take note of all the paths that are prompted. Select one by typing in the path n
 
 ### Sensor with Path Preference
 
-Finally we're going to fetch data and allow SCION to select the path based upon a preference. The available preferences configured are mtu, latency, bandwidth, and hops. The path preference is selected with the flag "-preference" and the preference string.
+Finally we're going to fetch data and allow SCION to select the path based upon a preference. The available preferences configured are MTU, latency, bandwidth, and hops. The path preference is selected with the flag "-preference" and the preference string.
 
 *What preference should we select for our sensors fetcher?* How many bytes does the sensorfetcher return? Not that many so bandwidth need not be one of our criteria. But sensor data is timely so latency would be a better preference. 
 
@@ -227,7 +228,7 @@ Run the sensorfetcher with a preference for a path with low latency.
 ```
 scion-sensorfetcher -preference latency -s 17-ffaa:0:1102,[192.33.93.177]:42003
 ```
-The extended scion path command can get the details on the mtu, latency, bandwidth, and hops.
+The extended scion path command can get the details on the MTU, latency, bandwidth, and hops.
 ```
 scion showpaths 17-ffaa:0:1102 --extended
 ```
@@ -325,7 +326,7 @@ You've now successfully run an IPv4 service over SCION.
 
 Your AS can be connected to multiple upstread Attachment Points. These paths can all be used simulatenously with your desired Path Aware Networking policy in place. For this portion, we'll be switching to the Switzerland ISD (17) since it has two Attachment Points available. Remember that your AS can only be connected to ASes from within your ISD.
 
-On https://www.scionlab.org/ you'll be modifying your AS. Remove the existing Magdelburg by clicking the *Delete* checkbox and then *Save*. Create two new Attachment Points one each to the ETH Zurich AP and to the ETH Hell AP by clicking *New Provider Link* twice. Use your hosts public IP and ports 50000 and 500001.
+On https://www.scionlab.org/ you'll be modifying your AS. Remove the existing Magdeburg by clicking the *Delete* checkbox and then *Save*. Create two new Attachment Points one each to the ETH Zurich AP and to the ETH Hell AP by clicking *New Provider Link* twice. Use your hosts public IP and ports 50000 and 500001.
 
 Rerun the *scionlab-config* command to pull down the new configuration.
 
@@ -340,7 +341,7 @@ scion address
 ```
 
 ### Examining Network Latency
-The ETH Hell AP artifically introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
+The ETH Hell AP artificially introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
 
 ```
 scion showpaths 17-ffaa:0:1102 -e
@@ -358,7 +359,8 @@ Run the sensorfetcher command and compare the results.
 scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003 -i
 ```
 
-Run the command across paths with and without Eth-Hell.
+Run the command across paths with and without ETH-Hell.
+
 
 ### Wrapup
 
