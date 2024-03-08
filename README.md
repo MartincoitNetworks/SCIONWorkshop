@@ -46,7 +46,7 @@ A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
-### Workshop Attendee Host
+### Workshop Lab Machine Assignments
 
 There are a number of lab machines available for your use. Please self assign yourself one and take note of the workshop lab machine number (i.e. #23) and IP address.
 
@@ -71,7 +71,7 @@ Copy and set aside the scionlab-config command. You'll be running this command s
 
 From the drop down, select the *19-ffaa:0:1303 (Magdeburg AP) SCION Access Points (AP)* as your upstream SCION connection. Leave the *Use VPN option OFF* (unchecked).
 
-Enter the IP address of your assigned Attendee Host in the *Public IP* field. The *Public Port (UDP) to 50000*.
+Enter the IP address of your assigned Workshop Lab (from the Google Doc) in the *Public IP* field. The *Public Port (UDP) to 50000*.
 
 *Save Changes* to register your new AS. Click *My ASes* and take note that your AS is now registered. Take note of the assigned AS. Make sure it is Active.
 
