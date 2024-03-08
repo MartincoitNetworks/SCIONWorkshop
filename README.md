@@ -232,13 +232,11 @@ https://docs.scionlab.org/content/apps/bwtester.html
 
 ## Legacy Application atop SCION
 
-All of our examples so far have shown SCION native applications running atop a SCION network. Now we're going to show how to a legacy IPv4 application can benefit from a SCION network without application modifications. We'll be using running the OpenStack Keystone identity service over SCION by setting up a SCION Internet Gateway (SIG) between the OpenStack client and OpenStack Keystone server.
-
-There is a Keystone server running at 19-ffaa:1:e98,[127.0.0.1:5000]
+All of our examples so far have shown SCION native applications running atop a SCION network. Now we're going to show how to a legacy IPv4 application can benefit from a SCION network without application modifications. We'll be using running the Fortune service over SCION by setting up a SCION Internet Gateway (SIG) between the your host and the remote server.
 
 ### SCION Internet Gateway (SIG)
 
-The SCION Internet Gateway (SIG) creates a tunnel between two ASes. In our case, it is going to create a tunnel between your host SCIONLab AS and the 19-ffaa:1:e98 AS where Keystone is running.
+The SCION Internet Gateway (SIG) creates a SCION tunnel between two ASes. In our case, it is going to create a tunnel between your host SCIONLab AS and the 18-ffaa:1:10c1 AS where Fortune server is running.
 
 The remote IPv4 network will be 172.16.10.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
 
@@ -250,7 +248,7 @@ Update /etc/scion/sig.json with the information about the remote end of the SIG 
 # /etc/scion/sig.json
 {
     "ASes": {
-        "19-ffaa:1:e98": { # Keystone AS - do not change this AS
+        "18-ffaa:1:10c1": { # Fortune AS - do not change this AS
             "Nets": [
                 "172.16.10.0/24"  # do not change this IP
             ]
@@ -262,15 +260,13 @@ Update /etc/scion/sig.json with the information about the remote end of the SIG 
 
 Add the following lines to /etc/scion/sig.toml
 ```
-# add these lines
-
 [tunnel]
-src_ipv4 = "172.16.13.1"   # replace 13 with your workshop number
+src_ipv4 = "172.16.X.1"   # replace X with your workshop number
 ```
 
 Add the new subnet to your workstation host via the loopback and restart the SIG gateway
 ```
-sudo ip address add 172.16.13.1 dev lo  # replace 13 with your workshop number
+sudo ip address add 172.16.X.1 dev lo  # replace 13 with your workshop number
 systemctl restart scion-ip-gateway.service
 ```
 
@@ -279,25 +275,17 @@ Test the connection.
 ping 172.16.10.1 -c 1
 ```
 
-### OpenStack Keystone atop SIG
+### Fortune atop SIG
 
-An Openstack credential file has been saved in the root directory for use. Modify it with the desired remote IP address.
+Connect to the Fortune service running on the remote host.
 
-```
-sudo -i
-vi ~root/demo-openrc
-```
+``
+telnet 172.16.10.1 5403
+``
 
-Change the IP address to the 172.16.10.1 in the demo-openrc.
+You'll receive back a Fortune from the remote server.
 
-Request a token from the remote Keystone server with the SCION network through the SIG.
-
-```
-source ~root/demo-openrc
-openstack token issue
-```
-
-You've now successfully run an IPv4 service over SCION.
+You've now successfully connected to a legacy IPv4 service tunneled over a SCION network.
 
 
 ### Multiple Attachment Points
