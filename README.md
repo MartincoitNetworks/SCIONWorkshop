@@ -173,18 +173,18 @@ Your SCION Host has a number of SCION native applications installed. A SCION nat
 
 First we're going to make sure we can ping the remote host.
 ```
-scion ping 17-ffaa:0:1102,192.33.93.177 -c 1
+scion ping 18-ffaa:1:10c1,127.0.0.1 -c 1
 ```
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
 ```
-scion showpaths 17-ffaa:0:1102
+scion showpaths 18-ffaa:1:10c1
 ```
 
 ### Sensor with Default Path Selection
 
 Fetch data with the default PAN (Path Aware Networking) policy. This will use the "best" path available.
 ```
-scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003
+scion-sensorfetcher -s 18-ffaa:1:10c1,[127.0.0.1]:42003
 ```
 You should get some data back from the remote sensor. The information you receive back from the sensor is irrelevant. What is important is that SCION decided the best path, from all available paths at that moment, and made the connection.
 
@@ -192,7 +192,7 @@ You should get some data back from the remote sensor. The information you receiv
 
 Next we're going to fetch data from the same remote sensor but interactively select the network path. This is done with the '-i' flag to the command.
 ```
-scion-sensorfetcher -i -s 17-ffaa:0:1102,[192.33.93.177]:42003
+scion-sensorfetcher -i -s 18-ffaa:1:10c1,[127.0.0.1]:42003
 ```
 Take note of all the paths that are prompted. Select one by typing in the path number and the connection will be initiated across that path. We've done this before with traceroute so nothing new.
 
@@ -204,11 +204,11 @@ Finally we're going to fetch data and allow SCION to select the path based upon 
 
 Run the sensorfetcher with a preference for a path with low latency.
 ```
-scion-sensorfetcher -preference latency -s 17-ffaa:0:1102,[192.33.93.177]:42003
+scion-sensorfetcher -preference latency -s 18-ffaa:1:10c1,[127.0.0.1]:42003
 ```
 The extended scion path command can get the details on the MTU, latency, bandwidth, and hops.
 ```
-scion showpaths 17-ffaa:0:1102 --extended
+scion showpaths 18-ffaa:1:10c1 --extended
 ```
 
 ## SCION Native Application - Bandwidth Tester
