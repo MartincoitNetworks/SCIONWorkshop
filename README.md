@@ -12,10 +12,6 @@ Before starting the workshop, you'll need a few things. The workshop presenter c
 
 As an workshop attendee, you'll need an Internet attached laptop with an SSH client, a web browser, and an email account.
 
-### Workshop Attendee Host
-
-At the start of the workshop, you'll be assigned a host to use via an Etherpad. Take note of the IP address and the username/password to log into the 
-
 ### Register with SCIONLab
 
 Create an account at [https://www.scionlab.org/](https://www.scionlab.org/registration/register/). SCIONLab is a global research network to test the SCION next-generation internet architecture. This will be used to connect your host to a SCION network.
@@ -50,6 +46,15 @@ A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1
 
 If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
+### Workshop Attendee Host
+
+There are a number of lab machines available for your use. Please self assign yourself one and take note of the workshop lab machine number (i.e. #23) and IP address.
+
+For SCALE12X, the list of available hosts on the Google Doc at http://bit.ly/SCALE21X-SCION
+Under the "name" column, please jot down your name in the "Lab Assigned User" column.
+Keep this worksheet tab open as you'll need to return to it later.
+
+
 ### SCIONLab versus SCION
 
 SCION is in production across several ISPs and financial institutions in Switzerland. SCIONLab is a seperate instance of SCION from the production instance in Switzerland. SCIONLab spans the globe and is designed to allow researchers and hobbyists alike to work with SCION in a collaborative fashion. The SCIONLab website was designed to facilitate the easy connection of hosts. SCIONLab primarily runs atop tradtional Internet connections as opposed to dedicated WAN circuits. This compromise means that SCIONLab does not have the true resilience of a SCION network running atop dedicated circuits.
@@ -60,7 +65,7 @@ As part of this workshop, you'll be creating your own AS under one of the existi
 
 ### Register your SCION AS
 
-On the SCIONLab website https://www.scionlab.org/user/, navigate to *My ASes* and click *Create a new SCIONLab AS*. Name your AS after your workshop host (i.e. Workshop 13). Select the *SCION installation from packages*. The host you have been provided already has the SCION packages installed. There's no need to rerun the package installs.
+On the SCIONLab website https://www.scionlab.org/user/, navigate to *My ASes* and click *Create a new SCIONLab AS*. Name your AS after your workshop host (i.e. Workshop 23). Select the *SCION installation from packages*. The host you have been provided already has the SCION packages installed. There's no need to rerun the package installs.
 
 Copy and set aside the scionlab-config command. You'll be running this command several times so save it onto a notepad or some scratch spot. The scionlab-config command is of the form "sudo scionlab-config --host-id=<...> --host-secret=<...>"
 
@@ -70,7 +75,7 @@ Enter the IP address of your assigned Attendee Host in the *Public IP* field. Th
 
 *Save Changes* to register your new AS. Click *My ASes* and take note that your AS is now registered. Take note of the assigned AS. Make sure it is Active.
 
-Go back to the Etherpad and update your host entry with your SCION AS ID (19-ffaa:1:XXX).
+Go back to the Google Doc and update your host entry with your SCION ISD-AS ID (19-ffaa:1:XXX). The ISD is the two digit code (i.e. 19) and the AS is the hexadecimal number. 
 
 ### SCION AS Configuration
 
