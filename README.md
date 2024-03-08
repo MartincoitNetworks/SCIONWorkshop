@@ -288,11 +288,11 @@ You'll receive back a Fortune from the remote server.
 You've now successfully connected to a legacy IPv4 service tunneled over a SCION network.
 
 
-### Multiple Attachment Points
+### Hell Attachment Points
 
-Your AS can be connected to multiple upstread Attachment Points. These paths can all be used simulatenously with your desired Path Aware Networking policy in place. For this portion, we'll be switching to the Switzerland ISD (17) since it has two Attachment Points available. Remember that your AS can only be connected to ASes from within your ISD.
+For this portion, we'll be switching to the Swiss ISD (17) since it has a "Hell" AP. The "Hell" AP has multiple upstream links of differing quality (bandwidth, latency, and packet jitter). 
 
-On https://www.scionlab.org/ you'll be modifying your AS. Remove the existing Magdeburg by clicking the *Delete* checkbox and then *Save*. Create two new Attachment Points one each to the ETH Zurich AP and to the ETH Hell AP by clicking *New Provider Link* twice. Use your hosts public IP and ports 50000 and 500001.
+On https://www.scionlab.org/ you'll be modifying your AS. Change the existing "Martincoit SD AP" to "ETHZ-AP" then *Save*. Use the existing hosts public IP and port 50000.
 
 Rerun the *scionlab-config* command to pull down the new configuration.
 
@@ -310,22 +310,15 @@ scion address
 The ETH Hell AP artificially introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
 
 ```
-scion showpaths 17-ffaa:0:1102 -e
+scion showpaths 17-ffaa:0:1113 -e
 ```
 
 *Compare the paths that traverse through ETH-Hell versus those that do not.* How does the latency and bandwidth compare?
 
 ```
-scion traceroute 17-ffaa:0:1102,[127.0.0.1] -i
+scion traceroute 17-ffaa:0:1113,[127.0.0.1] -i
 ```
 *Run traceroutes through the ETH-Hell paths and the non-Hell paths.* Compare the latency and bandwidth of the traceroutes.
-
-Run the sensorfetcher command and compare the results.
-```
-scion-sensorfetcher -s 18-ffaa:1:10c1,[127.0.0.1]:42003 -i
-```
-
-Run the command across paths with and without ETH-Hell.
 
 
 ### Wrapup
@@ -342,7 +335,7 @@ Follow us on Twitter: https://twitter.com/SCION_Workshop
 
 Sign up for the SCION newsletter: https://www.scion.org/#contact
 
-Copyright (C) 2022 - JHL Consulting LLC
+Copyright (C) 2024 - JHL Consulting LLC
 
 
 
