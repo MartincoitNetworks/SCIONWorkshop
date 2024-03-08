@@ -160,33 +160,6 @@ Enter in the number (i.e. 4) of the path that goes through ISD-17. The tracerout
 
 Congrats! You just made your first path selection use Path Aware Networking!
 
-### Web Visualization Tools - Installation
-
-Installed on your workshop host is a collection of web (browser) based applications. Let's start up the webapps and take a look. We'll be able to see graphically the output of the traceroute and showpaths commands we did above.
-
-Startup the web apps with the command:
-```
-sudo systemctl start scion-webapp
-```
-Navigate your web browser to the web app page running on port 8000 of your workshop host.
-```
-http://<workshop_host_ipv4>:8000/
-```
-
-### Web Visualization Tools - Traceroute
-
-We will repeat the traceroute command done above via the web interface. 
-
-Click the "traceroute" tab and enter in the destination of 19-ffaa:0:1303,[127.0.0.1:1]. Then click tab "Execute" and the "Run Once" button. You'll see the textual representation of the traceroute. Click the "Paths" tab and toggle on the "Topology" radio button to see a graphical representation of the traceroute. It's pretty simple since the Magdeburg AS is a single hop away.
-
-We'll do a more complex route next going to the Magdeburg Core AS (19-ffaa:0:1301). Change the AS on the web page and once again click "Execute" and "Run Once". You'll see a much more complex traceroute. Click over to "Paths" and "Topology" to see a graphical representation showing the additional hops.
-
-### Web Visualization Tools - Showpaths
-
-The web visualization tools can also be used to see all the paths available. From the web app, click over to the "Update Paths" on the far right web panel. You'll see all the paths available between the two ASes. Select one of the longer ones that goes through ISD 17 (Switzerland) - click the + sign.
-
-With the longer path selected, go ahead and rerun the traceroute. You'll see the traffic now leaves the EU ISD, traversing through the Swiss ISD, and then back into the EU ISD. The arrows on the graphic show the full path.
-
 
 ## SCION Native Application - Sensor
 
