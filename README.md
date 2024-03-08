@@ -322,7 +322,7 @@ scion traceroute 17-ffaa:0:1102,[127.0.0.1] -i
 
 Run the sensorfetcher command and compare the results.
 ```
-scion-sensorfetcher -s 17-ffaa:0:1102,[192.33.93.177]:42003 -i
+scion-sensorfetcher -s 18-ffaa:1:10c1,[127.0.0.1]:42003 -i
 ```
 
 Run the command across paths with and without ETH-Hell.
