@@ -79,7 +79,7 @@ Go back to the Google Doc and update your host entry with your SCION ISD-AS ID (
 
 ### SCION AS Configuration
 
-Login into (via SSH) the host that you've self-assigned. Use the username and password/key provided on the Etherpad.
+Login into (via SSH) the host that you've self-assigned. Use the username and password/key provided on the Google Doc.
 
 Configure the host with the SCION AS you created above using scionlab-config. It will pull down the information about your AS and set it up on your host.
 
