@@ -285,7 +285,7 @@ ping 172.16.10.1 -c 1
 Connect to the Fortune service running on the remote host.
 
 ``
-telnet 172.16.10.1 5403
+nc 172.16.10.1 5403
 ``
 
 You'll receive back a Fortune from the remote server.
