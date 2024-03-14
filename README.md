@@ -242,7 +242,7 @@ The remote IPv4 network will be 172.16.10.0/24. The local IPv4 network on your h
 
 Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel.
 
-Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel.
+Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel. No changes are required to the sig.json below. Copy the contents AS-IS.
 ```
 sudo vi /etc/scion/sig.json
 ```
@@ -250,9 +250,9 @@ sudo vi /etc/scion/sig.json
 ```
 {
     "ASes": {
-        "18-ffaa:1:10c1": { # Fortune AS - do not change this AS
+        "18-ffaa:1:10c1": { 
             "Nets": [
-                "172.16.10.0/24"  # do not change this IP
+                "172.16.10.0/24" 
             ]
         }
     },
@@ -260,18 +260,18 @@ sudo vi /etc/scion/sig.json
 }
 ```
 
-Add the following lines to /etc/scion/sig.toml
+Add the following lines to /etc/scion/sig.toml replacing X with your workshop # (i.e. 12).
 ```
 sudo vi /etc/scion/sig.toml
 ```
 ```
 [tunnel]
-src_ipv4 = "172.16.X.1"   # replace X with your workshop number
+src_ipv4 = "172.16.X.1"
 ```
 
-Add the new subnet to your workstation host via the loopback and restart the SIG gateway
+Add the new subnet to your workstation host via the loopback and restart the SIG gateway. Once again, replace X with your workship # (i.e. 12).
 ```
-sudo ip address add 172.16.X.1 dev lo  # replace 13 with your workshop number
+sudo ip address add 172.16.X.1 dev lo
 sudo systemctl restart scion-ip-gateway.service
 ```
 
