@@ -242,7 +242,10 @@ The remote IPv4 network will be 172.16.10.0/24. The local IPv4 network on your h
 
 Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel.
 
-Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel. sudo vi /etc/scion/sig.json
+Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel.
+```
+sudo vi /etc/scion/sig.json
+```
 
 ```
 # /etc/scion/sig.json
