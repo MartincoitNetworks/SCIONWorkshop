@@ -248,7 +248,6 @@ sudo vi /etc/scion/sig.json
 ```
 
 ```
-# /etc/scion/sig.json
 {
     "ASes": {
         "18-ffaa:1:10c1": { # Fortune AS - do not change this AS
@@ -263,6 +262,9 @@ sudo vi /etc/scion/sig.json
 
 Add the following lines to /etc/scion/sig.toml
 ```
+sudo vi /etc/scion/sig.toml
+```
+```
 [tunnel]
 src_ipv4 = "172.16.X.1"   # replace X with your workshop number
 ```
@@ -270,7 +272,7 @@ src_ipv4 = "172.16.X.1"   # replace X with your workshop number
 Add the new subnet to your workstation host via the loopback and restart the SIG gateway
 ```
 sudo ip address add 172.16.X.1 dev lo  # replace 13 with your workshop number
-systemctl restart scion-ip-gateway.service
+sudo systemctl restart scion-ip-gateway.service
 ```
 
 Test the connection.
