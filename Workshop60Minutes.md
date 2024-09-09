@@ -40,21 +40,34 @@ If there's no port component, you can commit the brackets around the IP address 
 
 For this workshop, we have preconfigured a SCION host for your use. The workshop instructor will provide you with login credentials. You will be using SSH (Secure Shell) to log into this host.
 
-## Your SCION AS
+### Your SCION AS
 
 As part of this workshop, you'll be using an existing SCION host that has is part of an existing SCION AS. You'll need to take note of the SCION ASN that you are using. To following "scion address" command will provide output of your local AS and IP address.
+
+Run this command:
 ```
 scion address
 ```
 
+The output should look like:
+```
+scionlab@scionlab:~$ scion address
+19-ffaa:1:e98,127.0.0.1
+```
+
 You will see something like "19-ffaa:1:e98,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:e98.
+
+### Verify basic SCION connectivity
 
 Verify that your host can another host across the SCION network. This can be done with the "scion ping" command. This pings the core router (127.0.0.1) located at the 19-ffaa:0:1303 AS.
 
+Run this command:
 ```
 scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 ```
 
+The output should look like:
+```
 scionlab@scionlab:~$ scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 Resolved local address:
   127.0.0.1
@@ -71,7 +84,7 @@ PING 19-ffaa:0:1303,127.0.0.1:0 pld=0B scion_pkt=80B
 --- 19-ffaa:0:1303,127.0.0.1 statistics ---
 5 packets transmitted, 5 received, 0% packet loss, time 5001.577ms
 rtt min/avg/max/mdev = 13.002/13.100/13.188/0.081 ms
-
+```
 
 ## Examine the SCIONLab Network
 
