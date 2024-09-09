@@ -159,7 +159,6 @@ Your SCION Host has a number of SCION native applications installed. A SCION nat
 First we're going to make sure we can ping the remote host.
 ```
 scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
-scion ping 17-ffaa:0:1102,[192.33.93.177] -c 1
 ```
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
 ```
