@@ -92,7 +92,7 @@ rtt min/avg/max/mdev = 13.002/13.100/13.188/0.081 ms
 
 A static representation of the SCIONLab is available at https://www.scionlab.org/topology.png. You can use it as a reference when you examine the network paths that SCION presents.
 
-### Showpaths
+### Showpaths - Single Hop
 
 One of the most useful tools is the "scion showpaths" command. This displays the paths that are currently available to a remote AS. Let's start small with the path(s) from your AS to the AS that you're connected.
 
@@ -100,9 +100,11 @@ One of the most useful tools is the "scion showpaths" command. This displays the
 scion showpaths 19-ffaa:0:1303
 ```
 
-*Why is there only one path back to 19-ffaa:0:1303?* Hint: How many attachment links does your host have to the upstream AS?
+*Why is there only one path back to 19-ffaa:0:1303?* Hint: How many attachment links does your host have to the upstream AS? Refer back to the network map https://www.scionlab.org/topology.png.
 
-Let's do a more complicated path. 19-ffaa:0:1301 is just a single hop from the upstream AP but has some additional paths with more hops.
+### Showpaths - Going Further
+
+Let's go a little further into the network reaching the Magdeburg Core at ffaa:0:1301.
 
 Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdeburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that go via other ISDs*
 
