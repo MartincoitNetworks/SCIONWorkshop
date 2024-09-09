@@ -196,105 +196,7 @@ The extended scion path command can get the details on the MTU, latency, bandwid
 scion showpaths 18-ffaa:1:10c1 --extended
 ```
 
-## SCION Native Application - Bandwidth Tester
 
-The bandwidth tester can be used to measure the network throughput across various paths through the SCION network. It's available as a command line app as well as through the web app. We're going to be running it via the command line.
-
-Run a test sending to ISD 17 (Switzerland) of 10 second duration (seconds), 1000 bytes packets, 1250 packets, and target 1 Mbps bandwidth in both directions (client to server and server to client). Take a look at the bandwidth values and inter packet arrival variance.
-```
-scion-bwtestclient -s 17-ffaa:0:1108,[195.176.28.157]:30100 -cs 10,1000,1250,1Mbps -sc 10,1000,12500,10Mbps
-```
-Repeat the above command with path selection turned on interactively (-i flag) and select a less optimal route (i.e. the last one on the interactive list).
-```
-scion-bwtestclient -i -s 17-ffaa:0:1108,[195.176.28.157]:30100 -cs 10,1000,1250,1Mbps -sc 10,1000,12500,10Mbps
-```
-Keep on increasing the target bandwidth to see what happens between the optimal route and alternate paths.
-
-A full list of bandwidth tester servers is available online if you want to try a different bandwidth server.
-
-https://docs.scionlab.org/content/apps/bwtester.html
- 
-
-## Legacy Application atop SCION
-
-All of our examples so far have shown SCION native applications running atop a SCION network. Now we're going to show how to a legacy IPv4 application can benefit from a SCION network without application modifications. We'll be using running the Fortune service over SCION by setting up a SCION Internet Gateway (SIG) between the your host and the remote server.
-
-### SCION Internet Gateway (SIG)
-
-The SCION Internet Gateway (SIG) creates a SCION tunnel between two ASes. In our case, it is going to create a tunnel between your host SCIONLab AS and the 18-ffaa:1:10c1 AS where Fortune server is running.
-
-The remote IPv4 network will be 172.16.10.0/24. The local IPv4 network on your host will be 172.16.X.0/24 where X is your workshop ID.
-
-Make sure you update the sign-up sheet with your AS information! The presenter will use this information to setup the remote side of the tunnel.
-
-Update /etc/scion/sig.json with the information about the remote end of the SIG tunnel. No changes are required to the sig.json below. Copy the contents AS-IS.
-```
-sudo vi /etc/scion/sig.json
-```
-
-```
-{
-    "ASes": {
-        "18-ffaa:1:10c1": { 
-            "Nets": [
-                "172.16.10.0/24" 
-            ]
-        }
-    },
-    "ConfigVersion": 9001
-}
-```
-
-Add the following lines to /etc/scion/sig.toml replacing X with your workshop # (i.e. 12).
-```
-sudo vi /etc/scion/sig.toml
-```
-```
-[tunnel]
-src_ipv4 = "172.16.X.1"
-```
-
-Add the new subnet to your workstation host via the loopback and restart the SIG gateway. Once again, replace X with your workship # (i.e. 12).
-```
-sudo ip address add 172.16.X.1 dev lo
-sudo systemctl restart scion-ip-gateway.service
-```
-
-Test the connection.
-```
-ping 172.16.10.1 -c 1
-```
-
-### Fortune atop SIG
-
-Connect to the Fortune service running on the remote host.
-
-``
-telnet 172.16.10.1 5403
-``
-
-You'll receive back a Fortune from the remote server.
-
-You've now successfully connected to a legacy IPv4 service tunneled over a SCION network.
-
-
-### Hell Attachment Points
-
-For this portion, we'll be switching to the Swiss ISD (17) since it has a "Hell" AP. The "Hell" AP has multiple upstream links of differing quality (bandwidth, latency, and packet jitter). 
-
-On https://www.scionlab.org/ you'll be modifying your AS. Change the existing "Martincoit SD AP" to "ETHZ-AP" then *Save*. Use the existing hosts public IP and port 50000.
-
-Rerun the *scionlab-config* command to pull down the new configuration.
-
-```
-sudo scionlab-config --host-id=<...> --host-secret=<...>
-```
-
-Verify that you have been assigned a new AS in the Switzerland ISD.
-
-```
-scion address
-```
 
 ### Examining Network Latency
 The ETH Hell AP artificially introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
@@ -325,7 +227,7 @@ Follow us on Twitter: https://twitter.com/SCION_Workshop
 
 Sign up for the SCION newsletter: https://www.scion.org/#contact
 
-Copyright (C) 2024 - JHL Consulting LLC
+Copyright (C) 2024 - JHL Consulting LLC & Martincoit Networks
 
 
 
