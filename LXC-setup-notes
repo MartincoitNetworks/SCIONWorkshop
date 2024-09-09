@@ -1,0 +1,18 @@
+
+
+lxc init ubuntu:22.04 scionlab
+lxc start scionlab
+lxc config device add scionlab scion-50001-udp proxy listen=udp:0.0.0.0:50001 connect=udp:127.0.0.1:50001
+lxc config device add scionlab scion-50002-udp proxy listen=udp:0.0.0.0:50002 connect=udp:127.0.0.1:50002
+lxc config device add scionlab scion-50003-udp proxy listen=udp:0.0.0.0:50003 connect=udp:127.0.0.1:50003
+lxc config device add scionlab scion-50004-udp proxy listen=udp:0.0.0.0:50004 connect=udp:127.0.0.1:50004
+lxc config device add scionlab scion-50005-udp proxy listen=udp:0.0.0.0:50005 connect=udp:127.0.0.1:50005
+lxc config device add scionlab scion-50006-udp proxy listen=udp:0.0.0.0:50006 connect=udp:127.0.0.1:50006
+lxc config device add scionlab ssh-2222-tcp proxy listen=tcp:0.0.0.0:2222 connect=tcp:127.0.0.1:2222
+
+
+lxc exec scionlab -- sudo apt-get install apt-transport-https ca-certificates
+lxc exec scionlab -- echo "deb [trusted=yes] https://packages.netsec.inf.ethz.ch/debian all main" | sudo tee /etc/apt/sources.list.d/
+scionlab.list
+lxc exec scionlab -- sudo apt-get update
+lxc exec scionlab -- sudo apt-get install scionlab
