@@ -1,4 +1,4 @@
-
+# setup the LXC as a SCIONLab node
 
 lxc init ubuntu:22.04 scionlab
 lxc start scionlab
@@ -12,7 +12,20 @@ lxc config device add scionlab ssh-2222-tcp proxy listen=tcp:0.0.0.0:2222 connec
 
 
 lxc exec scionlab -- sudo apt-get install apt-transport-https ca-certificates
-lxc exec scionlab -- echo "deb [trusted=yes] https://packages.netsec.inf.ethz.ch/debian all main" | sudo tee /etc/apt/sources.list.d/
-scionlab.list
-lxc exec scionlab -- sudo apt-get update
-lxc exec scionlab -- sudo apt-get install scionlab
+lxc exec scionlab -- /bin/bash -c "cat <<-EOF > /etc/apt/sources.list.d/scionlab.list
+deb [trusted=yes] https://packages.netsec.inf.ethz.ch/debian all main
+EOF"
+lxc exec scionlab -- sudo apt-get -y update
+lxc exec scionlab -- sudo apt-get -y install scionlab
+
+lxc exec scionlab -- /bin/bash -c "cat <<-EOF > /etc/ssh/sshd_config.d/70-scionlab.conf
+Port 2222
+Match User scionlab
+    PasswordAuthentication yes
+EOF"
+lxc exec scionlab -- sudo systemctl restart ssh.service
+lxc exec scionlab -- adduser --disabled-password --gecos "SCIONLab Workshop User" scionlab
+
+# passwd scionlab
+# scionlab-config the desired AS configuration
+
