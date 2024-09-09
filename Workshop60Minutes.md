@@ -158,7 +158,7 @@ Your SCION Host has a number of SCION native applications installed. A SCION nat
 
 First we're going to make sure we can ping the remote host.
 ```
-scion ping 18-ffaa:1:10c1,127.0.0.1 -c 1
+scion ping 17-ffaa:0:1102,[192.33.93.177] -c 1
 ```
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
 ```
@@ -195,23 +195,6 @@ The extended scion path command can get the details on the MTU, latency, bandwid
 ```
 scion showpaths 18-ffaa:1:10c1 --extended
 ```
-
-
-
-### Examining Network Latency
-The ETH Hell AP artificially introduces latency, packet loss, and caps bandwidth. Using the showpaths command, you can see the paths available and then examine the network attributes. Use the ETH Core AS *17-ffaa:0:1102* as the destination for your paths.
-
-```
-scion showpaths 17-ffaa:0:1113 -e
-```
-
-*Compare the paths that traverse through ETH-Hell versus those that do not.* How does the latency and bandwidth compare?
-
-```
-scion traceroute 17-ffaa:0:1113,[127.0.0.1] -i
-```
-*Run traceroutes through the ETH-Hell paths and the non-Hell paths.* Compare the latency and bandwidth of the traceroutes.
-
 
 ### Wrapup
 
