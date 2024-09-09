@@ -6,17 +6,7 @@ This workshop walks attaching a host to the SCIONLab network and examining Path 
 
 ## Prerequisites
 
-Before starting the workshop, you'll need a few things. The workshop presenter can help you as needed.
-
-### Attendee Software
-
-As an workshop attendee, you'll need an Internet attached laptop with an SSH client, a web browser, and an email account.
-
-### Register with SCIONLab
-
-Create an account at [https://www.scionlab.org/](https://www.scionlab.org/registration/register/). SCIONLab is a global research network to test the SCION next-generation internet architecture. This will be used to connect your host to a SCION network.
-
-You may need to disable ad blocking in order to view the CAPTCHA.
+As an workshop attendee, you'll need an Internet attached laptop with an SSH client.
 
 ## SCION Basics...
 
@@ -48,60 +38,40 @@ If there's no port component, you can commit the brackets around the IP address 
 
 ### Workshop Lab Machine Assignments
 
-There are a number of lab machines available for your use. Please self assign yourself one and take note of the workshop lab machine number (i.e. #23) and IP address.
-
-For SCALE12X, the list of available hosts on the Google Doc at http://bit.ly/SCALE21X-SCION
-Under the "name" column, please jot down your name in the "Lab Assigned User" column.
-Keep this worksheet tab open as you'll need to return to it later.
-
-
-### SCIONLab versus SCION
-
-SCION is in production across several ISPs and financial institutions in Switzerland. SCIONLab is a seperate instance of SCION from the production instance in Switzerland. SCIONLab spans the globe and is designed to allow researchers and hobbyists alike to work with SCION in a collaborative fashion. The SCIONLab website was designed to facilitate the easy connection of hosts. SCIONLab primarily runs atop traditonal Internet connections as opposed to dedicated WAN circuits. This compromise means that SCIONLab does not have the true resilience of a SCION network running atop dedicated circuits.
+For this workshop, we have preconfigured a SCION host for your use. The workshop instructor will provide you with login credentials. You will be using SSH (Secure Shell) to log into this host.
 
 ## Your SCION AS
 
-As part of this workshop, you'll be creating your own AS under one of the existing SCIONLab ISDs. 
-
-### Register your SCION AS
-
-On the SCIONLab website https://www.scionlab.org/user/, navigate to *My ASes* and click *Create a new SCIONLab AS*. Name your AS after your workshop host (i.e. Workshop 23). Select the *SCION installation from packages*. The host you have been provided already has the SCION packages installed. There's no need to rerun the package installs.
-
-Copy and set aside the scionlab-config command. You'll be running this command several times so save it onto a notepad or some scratch spot. The scionlab-config command is of the form "sudo scionlab-config --host-id=<...> --host-secret=<...>"
-
-From the drop down, select the *19-ffaa:0:1303 (Magdeburg AP) SCION Access Points (AP)* as your upstream SCION connection. Leave the *Use VPN option OFF* (unchecked).
-
-Enter the IP address of your assigned Workshop Lab (from the Google Doc) in the *Public IP* field. The *Public Port (UDP) to 50000*.
-
-*Save Changes* to register your new AS. Click *My ASes* and take note that your AS is now registered. Take note of the assigned AS. Make sure it is Active.
-
-Go back to the Google Doc and update your host entry with your SCION ISD-AS ID (19-ffaa:1:XXX). The ISD is the two digit code (i.e. 19) and the AS is the hexadecimal number. 
-
-### SCION AS Configuration
-
-Login into (via SSH) the host that you've self-assigned. Use the username and password/key provided on the Google Doc.
-
-Configure the host with the SCION AS you created above using scionlab-config. It will pull down the information about your AS and set it up on your host.
-
-```
-sudo scionlab-config --host-id=<...> --host-secret=<...>
-```
-
-Restart the SCION services.
-```
-sudo systemctl restart scionlab.target
-```
-
-Verify that your host has been assigned the correct AS with "scion address" command
+As part of this workshop, you'll be using an existing SCION host that has is part of an existing SCION AS. You'll need to take note of the SCION ASN that you are using. To following "scion address" command will provide output of your local AS and IP address.
 ```
 scion address
 ```
 
-Verify connectivity with a ping.
+You will see something like "19-ffaa:1:e98,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:e98.
+
+Verify that your host can another host across the SCION network. This can be done with the "scion ping" command. This pings the core router (127.0.0.1) located at the 19-ffaa:0:1303 AS.
 
 ```
 scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 ```
+
+scionlab@scionlab:~$ scion ping -c 5 19-ffaa:0:1303,127.0.0.1
+Resolved local address:
+  127.0.0.1
+Using path:
+  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303] MTU: 1472 NextHop: 127.0.0.1:30001
+
+PING 19-ffaa:0:1303,127.0.0.1:0 pld=0B scion_pkt=80B
+88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=0 time=13.002ms
+88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=1 time=13.006ms
+88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=2 time=13.176ms
+88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=3 time=13.130ms
+88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=4 time=13.188ms
+
+--- 19-ffaa:0:1303,127.0.0.1 statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 5001.577ms
+rtt min/avg/max/mdev = 13.002/13.100/13.188/0.081 ms
+
 
 ## Examine the SCIONLab Network
 
