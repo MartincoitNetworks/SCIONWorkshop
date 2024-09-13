@@ -218,7 +218,7 @@ Compare the first [0] and the last proposed paths [9]. Compare the latency betwe
     SupportsEPIC: false
     Status: alive
     LocalIP: 127.0.0.1
-``
+```
 
 Obviously selecting the path manually isn't feasible. In the next section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
 
