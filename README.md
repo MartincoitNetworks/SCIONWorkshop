@@ -12,7 +12,7 @@ If you see mistakes or have comments, please feel free to submit an issue or a P
 
 ## More Info?
 
-Follow us on Twitter: https://twitter.com/SCION_Workshop
+Follow us on Twitter: https://twitter.com/MTC_network
 
 Sign up for the SCION newsletter: https://www.scion.org/#contact
 
