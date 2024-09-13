@@ -38,7 +38,11 @@ If there's no port component, you can commit the brackets around the IP address 
 
 ### Workshop Lab Machine Assignments
 
-For this workshop, we have preconfigured a SCION host for your use. The workshop instructor will provide you with login credentials. You will be using SSH (Secure Shell) to log into this host.
+For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell) to log into this host on port 2222. 
+
+```
+ssh scionlab@scionlab.martincoit.net -p 2222
+```
 
 ### Your SCION AS
 
@@ -160,10 +164,64 @@ First we're going to make sure we can ping the remote host.
 ```
 scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
 ```
+
+You should see something like:
+```
+scionlab@scionlab:~$ scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
+Resolved local address:
+  127.0.0.1
+Using path:
+  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 3>5 18-ffaa:0:1201 6>4 28-ffaa:0:2201 5>11 17-ffaa:0:1101 8>2 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53] MTU: 1472 NextHop: 127.0.0.1:30001
+
+PING 17-ffaa:1:f53,127.0.0.1:0 pld=0B scion_pkt=216B
+224 bytes from 17-ffaa:1:f53,127.0.0.1: scmp_seq=0 time=436.394ms
+
+--- 17-ffaa:1:f53,127.0.0.1 statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 1002.286ms
+rtt min/avg/max/mdev = 436.394/436.394/436.394/0.000 ms
+```
+
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
 ```
 scion showpaths 17-ffaa:1:f53
 ```
+
+As you can see, there are plenty of paths to the destination AS. We can see some additional details about those paths with the "--extended" flag.
+
+```
+scion showpaths 17-ffaa:1:f53 --extended | more
+```
+
+Press the space bar to flow through the full lists of paths.
+
+Compare the first [0] and the last proposed paths [9]. Compare the latency between the paths proposed.
+
+```
+[0] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 7>9 17-ffaa:0:1
+108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53]
+    MTU: 1472
+    NextHop: 127.0.0.1:30001
+    Expires: 2024-09-14 01:03:54 +0000 UTC (5h55m6s)
+    Latency: >20.6ms (information incomplete)
+    SupportsEPIC: false
+    Status: alive
+    LocalIP: 127.0.0.1
+```
+```
+[9] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 286>4 19-ffaa:0:130b 3>9 19-ffaa:0
+:1301 11>1 19-ffaa:0:1305 5>11 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1
+107 579>2 17-ffaa:1:f53]
+    MTU: 1472
+    NextHop: 127.0.0.1:30001
+    Expires: 2024-09-14 01:03:52 +0000 UTC (5h54m41s)
+    Latency: >54.4ms (information incomplete)
+    SupportsEPIC: false
+    Status: alive
+    LocalIP: 127.0.0.1
+``
+
+Obviously selecting the path manually isn't feasible. In the next section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
+
 
 ### Sensor with Default Path Selection
 
@@ -206,9 +264,7 @@ If you see mistakes or have comments, please feel free to submit an issue or a P
 
 ## More Info?
 
-Follow us on Twitter: https://x.com/MTC_Network
-
-Sign up for the SCION newsletter: https://www.scion.org/#contact
+Follow us on LinkedIn: https://www.linkedin.com/company/martincoit-networks
 
 Copyright (C) 2024 - JHL Consulting LLC & Martincoit Networks
 
