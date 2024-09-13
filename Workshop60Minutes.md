@@ -2,7 +2,7 @@
 
 SCION is a next generation, clean slate technology to address some of the fundamental security issues with the Internet. Path Aware Networking (PAN), a feature of SCION, allows multiple paths to be available simultaneously for selection by the application or end user when a network connection is originated. One, or more paths, can be selected based upon a multitude of technical, business, and compliance/regulatory metrics or needs (i.e. bandwidth, latency, hops, MTU, price, must stay in EU, etc).
 
-This workshop walks attaching a host to the SCIONLab network and examining Path Aware Networking in details. This includes examining available paths, the metrics of the paths, and then selecting the desired path for a connection.
+This workshop walks through attaching a host to the SCIONLab network and examining Path Aware Networking in details. This includes examining available paths, the metrics of the paths, and then selecting the desired path for a connection.
 
 ## Prerequisites
 
