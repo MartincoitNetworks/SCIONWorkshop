@@ -56,10 +56,10 @@ scion address
 The output should look like:
 ```
 scionlab@scionlab:~$ scion address
-19-ffaa:1:e98,127.0.0.1
+19-ffaa:1:fa5,127.0.0.1
 ```
 
-You will see something like "19-ffaa:1:e98,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:e98.
+You will see something like "19-ffaa:1:fa5,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:fa5.
 
 ### Verify basic SCION connectivity
 
@@ -76,7 +76,7 @@ scionlab@scionlab:~$ scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 Resolved local address:
   127.0.0.1
 Using path:
-  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303] MTU: 1472 NextHop: 127.0.0.1:30001
+  Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303] MTU: 1472 NextHop: 127.0.0.1:30001
 
 PING 19-ffaa:0:1303,127.0.0.1:0 pld=0B scion_pkt=80B
 88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=0 time=13.002ms
@@ -171,7 +171,7 @@ scionlab@scionlab:~$ scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
 Resolved local address:
   127.0.0.1
 Using path:
-  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 3>5 18-ffaa:0:1201 6>4 28-ffaa:0:2201 5>11 17-ffaa:0:1101 8>2 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53] MTU: 1472 NextHop: 127.0.0.1:30001
+  Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 3>5 18-ffaa:0:1201 6>4 28-ffaa:0:2201 5>11 17-ffaa:0:1101 8>2 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53] MTU: 1472 NextHop: 127.0.0.1:30001
 
 PING 17-ffaa:1:f53,127.0.0.1:0 pld=0B scion_pkt=216B
 224 bytes from 17-ffaa:1:f53,127.0.0.1: scmp_seq=0 time=436.394ms
@@ -197,7 +197,7 @@ Press the space bar to flow through the full lists of paths.
 Compare the first [0] and the last proposed paths [9]. Compare the latency between the paths proposed.
 
 ```
-[0] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 7>9 17-ffaa:0:1
+[0] Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 7>9 17-ffaa:0:1
 108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53]
     MTU: 1472
     NextHop: 127.0.0.1:30001
@@ -208,7 +208,7 @@ Compare the first [0] and the last proposed paths [9]. Compare the latency betwe
     LocalIP: 127.0.0.1
 ```
 ```
-[9] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 286>4 19-ffaa:0:130b 3>9 19-ffaa:0
+[9] Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 286>4 19-ffaa:0:130b 3>9 19-ffaa:0
 :1301 11>1 19-ffaa:0:1305 5>11 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1
 107 579>2 17-ffaa:1:f53]
     MTU: 1472
