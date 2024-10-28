@@ -245,6 +245,22 @@ The extended scion path command can get the details on the MTU, latency, bandwid
 scion showpaths 18-ffaa:1:f57 --extended
 ```
 
+### Additional Path Preferences
+
+There are some additional parameters to preference as well as sequence string. Try out the other preferences (by bandwidth, hops, or MTU) to see how they impact the path selection. Try out the sequence to specify the specific paths to take.
+
+```
+scionlab@fra02:~$ scion-sensorfetcher -help
+Usage of scion-sensorfetcher:
+  -i    Interactive path selection, prompt to choose path
+  -preference string
+        Preference sorting order for paths. Comma-separated list of available sorting options: latency|bandwidth|hops|mtu
+  -s string
+        Server address (<ISD-AS,[IP]:port> or <hostname:port>)
+  -sequence string
+        Sequence of space separated hop predicates to specify path
+```
+
 ### Wrapup
 
 ## Thank You
