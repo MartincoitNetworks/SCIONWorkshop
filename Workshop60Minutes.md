@@ -38,10 +38,10 @@ If there's no port component, you can commit the brackets around the IP address 
 
 ### Workshop Lab Machine Assignments
 
-For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell) to log into this host on port 2222. 
+For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell). 
 
 ```
-ssh scionlab@scionlab.martincoit.net -p 2222
+ssh scionlab@fra02.martincoit.net
 ```
 
 ### Your SCION AS
@@ -56,10 +56,10 @@ scion address
 The output should look like:
 ```
 scionlab@scionlab:~$ scion address
-19-ffaa:1:e98,127.0.0.1
+19-ffaa:1:fa5,127.0.0.1
 ```
 
-You will see something like "19-ffaa:1:e98,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:e98.
+You will see something like "19-ffaa:1:fa5,127.0.0.1" indicating an ISD of 19 and an AS of ffaa:1:fa5.
 
 ### Verify basic SCION connectivity
 
@@ -76,7 +76,7 @@ scionlab@scionlab:~$ scion ping -c 5 19-ffaa:0:1303,127.0.0.1
 Resolved local address:
   127.0.0.1
 Using path:
-  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303] MTU: 1472 NextHop: 127.0.0.1:30001
+  Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303] MTU: 1472 NextHop: 127.0.0.1:30001
 
 PING 19-ffaa:0:1303,127.0.0.1:0 pld=0B scion_pkt=80B
 88 bytes from 19-ffaa:0:1303,127.0.0.1: scmp_seq=0 time=13.002ms
@@ -162,34 +162,35 @@ Your SCION Host has a number of SCION native applications installed. A SCION nat
 
 First we're going to make sure we can ping the remote host.
 ```
-scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
+scion ping 18-ffaa:1:f57,127.0.0.1 -c 1
+
 ```
 
 You should see something like:
 ```
-scionlab@scionlab:~$ scion ping 17-ffaa:1:f53,127.0.0.1 -c 1
+scionlab@scionlab:~$ scion ping 18-ffaa:1:f57,127.0.0.1 -c 1
 Resolved local address:
   127.0.0.1
 Using path:
-  Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 3>5 18-ffaa:0:1201 6>4 28-ffaa:0:2201 5>11 17-ffaa:0:1101 8>2 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53] MTU: 1472 NextHop: 127.0.0.1:30001
+  Hops: [19-ffaa:1:fa5 1>469 19-ffaa:0:1303 1>5 19-ffaa:0:1301 2>2 16-ffaa:0:1002 12>8 16-ffaa:0:1001 5>3 16-ffaa:0:1004 1>2 18-ffaa:0:1201 8>1 18-ffaa:0:1206 158>1 18-ffaa:1:f57] MTU: 1472 NextHop: 127.0.0.1:30001
 
-PING 17-ffaa:1:f53,127.0.0.1:0 pld=0B scion_pkt=216B
-224 bytes from 17-ffaa:1:f53,127.0.0.1: scmp_seq=0 time=436.394ms
+PING 18-ffaa:1:f57,127.0.0.1:0 pld=0B scion_pkt=204B
+212 bytes from 18-ffaa:1:f57,127.0.0.1: scmp_seq=0 time=282.147ms
 
---- 17-ffaa:1:f53,127.0.0.1 statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 1002.286ms
-rtt min/avg/max/mdev = 436.394/436.394/436.394/0.000 ms
+--- 18-ffaa:1:f57,127.0.0.1 statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 1002.186ms
+rtt min/avg/max/mdev = 282.147/282.147/282.147/0.000 ms
 ```
 
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
 ```
-scion showpaths 17-ffaa:1:f53
+scion showpaths 18-ffaa:1:f57
 ```
 
 As you can see, there are plenty of paths to the destination AS. We can see some additional details about those paths with the "--extended" flag.
 
 ```
-scion showpaths 17-ffaa:1:f53 --extended | more
+scion showpaths 18-ffaa:1:f57 --extended | more
 ```
 
 Press the space bar to flow through the full lists of paths.
@@ -197,27 +198,17 @@ Press the space bar to flow through the full lists of paths.
 Compare the first [0] and the last proposed paths [9]. Compare the latency between the paths proposed.
 
 ```
-[0] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 7>9 17-ffaa:0:1
-108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 17-ffaa:1:f53]
+[0] Hops: [19-ffaa:1:fa5 ~~ 1>469 19-ffaa:0:1303 ~~ 1>5 19-ffaa:0:1301 ~~ 3>5 18
+-ffaa:0:1201 ~~ 8>1 18-ffaa:0:1206 ~~ 158>1 18-ffaa:1:f57 ~~]
     MTU: 1472
     NextHop: 127.0.0.1:30001
-    Expires: 2024-09-14 01:03:54 +0000 UTC (5h55m6s)
-    Latency: >20.6ms (information incomplete)
+    Expires: 2024-10-28 23:42:06 +0000 UTC (5h55m31s)
+    Latency: >112.5ms (information incomplete)
     SupportsEPIC: false
     Status: alive
     LocalIP: 127.0.0.1
-```
-```
-[9] Hops: [19-ffaa:1:e98 2>495 19-ffaa:0:1303 286>4 19-ffaa:0:130b 3>9 19-ffaa:0
-:1301 11>1 19-ffaa:0:1305 5>11 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1
-107 579>2 17-ffaa:1:f53]
-    MTU: 1472
-    NextHop: 127.0.0.1:30001
-    Expires: 2024-09-14 01:03:52 +0000 UTC (5h54m41s)
-    Latency: >54.4ms (information incomplete)
-    SupportsEPIC: false
-    Status: alive
-    LocalIP: 127.0.0.1
+7 Hops:
+...
 ```
 
 Obviously selecting the path manually isn't feasible. In the next section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
@@ -227,7 +218,7 @@ Obviously selecting the path manually isn't feasible. In the next section, we wi
 
 Fetch data with the default PAN (Path Aware Networking) policy. This will use the "best" path available.
 ```
-scion-sensorfetcher -s  17-ffaa:1:f53,127.0.0.1:42003
+scion-sensorfetcher -s  18-ffaa:1:f57,127.0.0.1:42003
 ```
 You should get some data back from the remote sensor. The information you receive back from the sensor is irrelevant. What is important is that SCION decided the best path, from all available paths at that moment, and made the connection.
 
@@ -235,7 +226,7 @@ You should get some data back from the remote sensor. The information you receiv
 
 Next we're going to fetch data from the same remote sensor but interactively select the network path. This is done with the '-i' flag to the command.
 ```
-scion-sensorfetcher -i -s 17-ffaa:1:f53,127.0.0.1:42003
+scion-sensorfetcher -i -s 18-ffaa:1:f57,127.0.0.1:42003
 ```
 Take note of all the paths that are prompted. Select one by typing in the path number and the connection will be initiated across that path. We've done this before with traceroute so nothing new.
 
@@ -247,11 +238,11 @@ Finally we're going to fetch data and allow SCION to select the path based upon 
 
 Run the sensorfetcher with a preference for a path with low latency.
 ```
-scion-sensorfetcher -preference latency -s 17-ffaa:1:f53,127.0.0.1:42003
+scion-sensorfetcher -preference latency -s 18-ffaa:1:f57,127.0.0.1:42003
 ```
 The extended scion path command can get the details on the MTU, latency, bandwidth, and hops.
 ```
-scion showpaths 17-ffaa:1:f53 --extended
+scion showpaths 18-ffaa:1:f57 --extended
 ```
 
 ### Wrapup
