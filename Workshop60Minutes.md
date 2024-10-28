@@ -172,14 +172,14 @@ scionlab@scionlab:~$ scion ping 18-ffaa:1:f57,127.0.0.1 -c 1
 Resolved local address:
   127.0.0.1
 Using path:
-  Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 3>5 18-ffaa:0:1201 6>4 28-ffaa:0:2201 5>11 17-ffaa:0:1101 8>2 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 18-ffaa:1:f57] MTU: 1472 NextHop: 127.0.0.1:30001
+  Hops: [19-ffaa:1:fa5 1>469 19-ffaa:0:1303 1>5 19-ffaa:0:1301 2>2 16-ffaa:0:1002 12>8 16-ffaa:0:1001 5>3 16-ffaa:0:1004 1>2 18-ffaa:0:1201 8>1 18-ffaa:0:1206 158>1 18-ffaa:1:f57] MTU: 1472 NextHop: 127.0.0.1:30001
 
-PING 18-ffaa:1:f57,127.0.0.1:0 pld=0B scion_pkt=216B
-224 bytes from 18-ffaa:1:f57,127.0.0.1: scmp_seq=0 time=436.394ms
+PING 18-ffaa:1:f57,127.0.0.1:0 pld=0B scion_pkt=204B
+212 bytes from 18-ffaa:1:f57,127.0.0.1: scmp_seq=0 time=282.147ms
 
 --- 18-ffaa:1:f57,127.0.0.1 statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 1002.286ms
-rtt min/avg/max/mdev = 436.394/436.394/436.394/0.000 ms
+1 packets transmitted, 1 received, 0% packet loss, time 1002.186ms
+rtt min/avg/max/mdev = 282.147/282.147/282.147/0.000 ms
 ```
 
 And we're going to check that SCION has a full set of paths to the remote AS. You should see at least half a dozen paths to the remote AS.
@@ -198,27 +198,17 @@ Press the space bar to flow through the full lists of paths.
 Compare the first [0] and the last proposed paths [9]. Compare the latency between the paths proposed.
 
 ```
-[0] Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 1>5 19-ffaa:0:1301 7>9 17-ffaa:0:1
-108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1107 579>2 18-ffaa:1:f57]
+[0] Hops: [19-ffaa:1:fa5 ~~ 1>469 19-ffaa:0:1303 ~~ 1>5 19-ffaa:0:1301 ~~ 3>5 18
+-ffaa:0:1201 ~~ 8>1 18-ffaa:0:1206 ~~ 158>1 18-ffaa:1:f57 ~~]
     MTU: 1472
     NextHop: 127.0.0.1:30001
-    Expires: 2024-09-14 01:03:54 +0000 UTC (5h55m6s)
-    Latency: >20.6ms (information incomplete)
+    Expires: 2024-10-28 23:42:06 +0000 UTC (5h55m31s)
+    Latency: >112.5ms (information incomplete)
     SupportsEPIC: false
     Status: alive
     LocalIP: 127.0.0.1
-```
-```
-[9] Hops: [19-ffaa:1:fa5 2>495 19-ffaa:0:1303 286>4 19-ffaa:0:130b 3>9 19-ffaa:0
-:1301 11>1 19-ffaa:0:1305 5>11 17-ffaa:0:1108 4>3 17-ffaa:0:1102 4>1 17-ffaa:0:1
-107 579>2 18-ffaa:1:f57]
-    MTU: 1472
-    NextHop: 127.0.0.1:30001
-    Expires: 2024-09-14 01:03:52 +0000 UTC (5h54m41s)
-    Latency: >54.4ms (information incomplete)
-    SupportsEPIC: false
-    Status: alive
-    LocalIP: 127.0.0.1
+7 Hops:
+...
 ```
 
 Obviously selecting the path manually isn't feasible. In the next section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
