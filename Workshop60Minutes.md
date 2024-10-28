@@ -38,10 +38,10 @@ If there's no port component, you can commit the brackets around the IP address 
 
 ### Workshop Lab Machine Assignments
 
-For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell) to log into this host on port 2222. 
+For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell). 
 
 ```
-ssh scionlab@scionlab.martincoit.net -p 2222
+ssh scionlab@fra02.martincoit.net
 ```
 
 ### Your SCION AS
