@@ -34,11 +34,11 @@ A SCION address is composed of the ISD, AS, IP address, and port. So 19-ffaa:0:1
 | IP            | 10.20.30.40    | IP address within the Magdeburg AS |
 | Port          | 22             | Port on the host 10.20.30.40       |
 
-If there's no port component, you can commit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
+If there's no port component, you can omit the brackets around the IP address (i.e. 19-ffaa:0:1303,10.20.30.40).
 
 ### Workshop Lab Machine Assignments
 
-For this workshop, we have preconfigured a SCION host for your use at scionlab.martincoit.net. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell). 
+For this workshop, we have preconfigured a SCION host for your use within scionlab.org. The workshop instructor will provide you with SSH login credentials. You will be using SSH (Secure Shell). 
 
 ```
 ssh scionlab@fra02.martincoit.net
@@ -46,7 +46,7 @@ ssh scionlab@fra02.martincoit.net
 
 ### Your SCION AS
 
-As part of this workshop, you'll be using an existing SCION host that has is part of an existing SCION AS. You'll need to take note of the SCION ASN that you are using. To following "scion address" command will provide output of your local AS and IP address.
+As part of this workshop, you'll be using an existing SCION host that has is part of an existing SCION AS. You'll need to take note of the SCION ASN that you are using. The following "scion address" command will provide output of your local AS and IP address.
 
 Run this command:
 ```
@@ -110,7 +110,7 @@ scion showpaths 19-ffaa:0:1303
 
 Let's go a little further into the network reaching the Magdeburg Core at ffaa:0:1301.
 
-Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdeburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that go via other ISDs*
+Before you run the command, think for a moment how many paths there might be from your AS to ffaa:0:1301 (Magdeburg Core). Take a look at the SCIONLab topology  https://www.scionlab.org/topology.png and trace out all the paths between your from your AS AP (ffaa:0:1303) to ffaa:0:1303. *Not all the paths may be within your ISD. There may be paths that route via other ISDs*
 
 ```
 scion showpaths 19-ffaa:0:1301
@@ -150,17 +150,17 @@ Now we're going to use the *-i* command to run traceroute and pick our path inte
 scion traceroute 19-ffaa:0:1301,127.0.0.1 -i
 ```
 
-Enter in the number (i.e. 4) of the path that goes through ISD-17. The traceroute will now utilize that path. Take note of the packets traversing ISD-17.
+Enter in the number (i.e. 2) of the path that goes through ISD-17. The traceroute will now utilize that path. Take note of the packets traversing ISD-17.
 
 Congrats! You just made your first path selection use Path Aware Networking!
 
 
 ## SCION Native Application - Sensor
 
-Your SCION Host has a number of SCION native applications installed. A SCION native application is able to directly utilize SCION IP addresses and policy based path networking. scion-sensor is one such application. There is a sensor server running at "17-ffaa:0:1102,[192.33.93.177]:42003". We'll be using this application to examine the Path Aware Networking capabilities of SCION Native Applications.
+Your SCION Host has a number of SCION native applications installed. A SCION native application is able to directly utilize SCION addresses and policy based path networking. scion-sensor is one such application. There is a sensor server running at "18-ffaa:1:f57,127.0.0.1:42003". We'll be using this application to examine the Path Aware Networking capabilities of SCION Native Applications.
 
 
-First we're going to make sure we can ping the remote host.
+First we're going to make sure we can ping the remote host in ISD 18.
 ```
 scion ping 18-ffaa:1:f57,127.0.0.1 -c 1
 
@@ -211,7 +211,7 @@ Compare the first [0] and the last proposed paths [9]. Compare the latency betwe
 ...
 ```
 
-Obviously selecting the path manually isn't feasible. In the next section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
+Obviously selecting the path manually isn't feasible. In a later section, we will show how we can pass along our preferences (latency, hops, MTU, etc) and have the network select the best path accordingly.
 
 
 ### Sensor with Default Path Selection
@@ -274,13 +274,3 @@ If you see mistakes or have comments, please feel free to submit an issue or a P
 Follow us on LinkedIn: https://www.linkedin.com/company/martincoit-networks
 
 Copyright (C) 2024 - JHL Consulting LLC & Martincoit Networks
-
-
-
-
-
-
-
-
-
-
